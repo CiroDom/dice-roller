@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diceroller.databinding.SelectedsItemBinding
 
-class SelectedsAdapter(private val selecteds: List<Int?>) : RecyclerView.Adapter<SelectedsAdapter.VHolder>() {
+class SelectedsAdapter(private val selecteds: MutableList<Int?>) : RecyclerView.Adapter<SelectedsAdapter.VHolder>() {
 
     inner class VHolder(binding: SelectedsItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -17,7 +17,11 @@ class SelectedsAdapter(private val selecteds: List<Int?>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: VHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.itemView.setOnClickListener {
+            if (selecteds[position] != null) {
+                selecteds[position] = null
+            }
+        }
     }
 
     override fun getItemCount(): Int {

@@ -1,4 +1,4 @@
-package com.example.diceroller
+package com.example.diceroller.controllers
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -28,7 +28,11 @@ class SelectionActivity : AppCompatActivity() {
         binding.selecRecyviewSelecteds
     }
 
-    private var selectedsAdapter = SelectedsAdapter(emptyList())
+    private val diceOrDices by lazy {
+        binding.selecTxtDiceOrDices
+    }
+
+    private var selectedsAdapter = SelectedsAdapter(mutableListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +58,7 @@ class SelectionActivity : AppCompatActivity() {
 
     private fun setupHoriRecyView() {
         val initialList = mutableListOf<Int?>()
-        for (i in dices.indices) {
+        for (i in 0 until diceQuant) {
             initialList.add(null)
         }
         selectedsAdapter = SelectedsAdapter(initialList)
@@ -67,6 +71,7 @@ class SelectionActivity : AppCompatActivity() {
         selectedsAdapter.notifyDataSetChanged()
     }
 
+
     private fun addDice(dice: Int) {
         for (i in 0 until apparentlySelecteds.size) {
             if (i == null) {
@@ -78,6 +83,10 @@ class SelectionActivity : AppCompatActivity() {
 
     private fun increseDiceQuant() {
         if (diceQuant >= 6) return
+
+        if (diceQuant == 1) {
+            diceOrDices.text = "dices"
+        }
 
         diceQuant++
         
@@ -93,6 +102,10 @@ class SelectionActivity : AppCompatActivity() {
         
         if (diceQuant > apparentlySelecteds.size) {
             apparentlySelecteds.removeLast()
+        }
+
+        if (diceQuant == 1) {
+            diceOrDices.text = "dice"
         }
     }
 }
