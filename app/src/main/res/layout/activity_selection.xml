@@ -14,9 +14,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/selec_txt_rolling"
         android:layout_marginBottom="16dp"
-        tools:listitem="@layout/dices_item"
+        tools:listitem="@layout/item_dices"
         tools:itemCount="8"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"/>
@@ -27,19 +27,21 @@
         android:layout_height="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/selec_fab_next"
+        app:layout_constraintBottom_toTopOf="@id/selec_txt_rolling"
         android:layout_marginBottom="8dp"
-        tools:listitem="@layout/selecteds_item"
-        tools:itemCount="3"/>
+        tools:listitem="@layout/item_selecteds"
+        tools:itemCount="3"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/selec_fab_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/selec_txt_dice_or_dices"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:text="X"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/selec_fab_minus"
@@ -47,7 +49,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@id/selec_fab_next"
         app:layout_constraintBottom_toBottomOf="@id/selec_fab_next"
-        android:layout_marginHorizontal="8dp"/>
+        android:layout_marginHorizontal="8dp"
+        android:src="@drawable/baseline_remove"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/selec_fab_plus"
@@ -55,7 +58,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/selec_fab_next"
         app:layout_constraintBottom_toBottomOf="@id/selec_fab_next"
-        android:layout_marginHorizontal="8dp"/>
+        android:layout_marginHorizontal="8dp"
+        android:src="@drawable/baseline_add"/>
 
     <TextView android:id="@+id/selec_txt_head"
         android:layout_width="wrap_content"
@@ -64,7 +68,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/selec_recyview_dices"
-        android:text="Chose the dices"
+        android:text="@string/header"
         android:textAlignment="center"/>
 
     <TextView android:id="@+id/selec_txt_rolling"
@@ -82,6 +86,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="dices"/>
+        android:text="X"
+        tools:text="dices"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

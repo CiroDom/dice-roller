@@ -13,6 +13,9 @@
         android:theme="@style/Theme.DiceRoller"
         tools:targetApi="31">
         <activity
+            android:name=".controllers.RollingActivity"
+            android:exported="false" />
+        <activity
             android:name=".controllers.SelectionActivity"
             android:exported="true">
             <intent-filter>
