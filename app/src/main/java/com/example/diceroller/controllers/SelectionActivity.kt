@@ -17,7 +17,7 @@ class SelectionActivity : AppCompatActivity() {
 
     private val noDice = 0
 
-    private val apparentlySelecteds = mutableListOf<Int>(noDice)
+    private val selecteds = mutableListOf<Int>(noDice)
 
     private val binding by lazy {
         ActivitySelectionBinding.inflate(layoutInflater)
@@ -80,7 +80,7 @@ class SelectionActivity : AppCompatActivity() {
     }
 
     private fun setupHoriRecyView() {
-        selectedsAdapter = SelectedsAdapter(apparentlySelecteds, ::removeDice)
+        selectedsAdapter = SelectedsAdapter(selecteds, ::removeDice)
 
         with(selectedsRecyView) {
             layoutManager = LinearLayoutManager(this@SelectionActivity, LinearLayoutManager.HORIZONTAL, false)
@@ -91,88 +91,93 @@ class SelectionActivity : AppCompatActivity() {
     }
 
     private fun addDice(dice: Int) {
-        for (i in 0 until apparentlySelecteds.size) {
-            if (apparentlySelecteds[i] == noDice) {
-                apparentlySelecteds[i] = dice
+        for (i in 0 until selecteds.size) {
+            if (selecteds[i] == noDice) {
+                selecteds[i] = dice
                 break
             }
         }
 
         selectedsAdapter.notifyDataSetChanged()
-
-        Log.i("addDice", "$apparentlySelecteds")
     }
 
     private fun removeDice(dicePosition: Int) {
-        apparentlySelecteds[dicePosition] = noDice
+        selecteds[dicePosition] = noDice
 
         selectedsAdapter.notifyDataSetChanged()
-
-        Log.i("removeDice", "$apparentlySelecteds")
     }
 
     private fun increseDiceQuant() {
-        if (apparentlySelecteds.size >= 6) return
+        if (selecteds.size >= 6) return
 
-        apparentlySelecteds.add(noDice)
+        selecteds.add(noDice)
 
-        if (apparentlySelecteds.size > 1) {
+        if (selecteds.size > 1) {
             diceOrDices.text = getString(R.string.dices)
         }
 
-        extendFAB.text = apparentlySelecteds.size.toString()
+        extendFAB.text = selecteds.size.toString()
 
         selectedsAdapter.notifyDataSetChanged()
-
-        Log.i("increase", "$apparentlySelecteds")
     }
 
     private fun decreaseDiceQuant() {
-        if (apparentlySelecteds.size <= 1) return
+        if (justOneNoDice()) return
 
-        if (apparentlySelecteds.contains(noDice)) {
-            apparentlySelecteds.remove(noDice)
+        if (selecteds.contains(noDice)) {
+            selecteds.remove(noDice)
+        } else if (selecteds.size >= 2) {
+            selecteds.removeLast()
         } else {
-            apparentlySelecteds.removeLast()
+            selecteds[0] = noDice
         }
 
-        if (apparentlySelecteds.size == 1) {
+        if (selecteds.size == 1) {
             diceOrDices.text = getString(R.string.dice)
         }
 
-        extendFAB.text = apparentlySelecteds.size.toString()
+        extendFAB.text = selecteds.size.toString()
 
         selectedsAdapter.notifyDataSetChanged()
-
-        Log.i("decrease", "$apparentlySelecteds")
     }
 
     private fun goToRollingActv() {
-        if (apparentlySelecteds.contains(noDice)) {
-            Log.i("goTo", "bloquado")
+        if (selecteds.contains(noDice)) {
             return
         }
 
-        Log.i("goTo", "chegou aqui")
-
-        val pair = apparentlySelecteds.size % 2 == 0
+        val pair = selecteds.size % 2 == 0
+        val selectedsWithNoDice = mutableListOf<Int>()
+        selectedsWithNoDice.addAll(selecteds)
 
         if (pair) {
-            for (i in 0 until apparentlySelecteds.size) {
+            for (i in 0 until selecteds.size) {
                 if (i % 2 != 0) {
-                    apparentlySelecteds.add(index = i, noDice)
+                    selectedsWithNoDice.add(index = i, noDice)
                 }
             }
         } else {
-            for (i in 0 until apparentlySelecteds.size) {
+            for (i in 0 until selecteds.size) {
                 if (i % 2 == 0) {
-                    apparentlySelecteds.add(index = i, noDice)
+                    selectedsWithNoDice.add(index = i, noDice)
                 }
             }
         }
 
-        val actualSelecteds = apparentlySelecteds.toIntArray()
+        val selectedsIntArray = selectedsWithNoDice.toIntArray()
         val intent = Intent(this@SelectionActivity, RollingActivity::class.java)
-        intent.putExtra("dices", actualSelecteds)
+        intent.putExtra("dices", selectedsIntArray)
+        startActivity(intent)
+    }
+
+    private fun justOneNoDice() : Boolean {
+        if (
+            selecteds.size == 1
+            && selecteds.contains(noDice)
+        ) {
+            return true
+        }
+
+        return false
     }
 }
