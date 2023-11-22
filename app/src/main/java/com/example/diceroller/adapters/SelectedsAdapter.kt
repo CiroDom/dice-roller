@@ -19,12 +19,15 @@ class SelectedsAdapter(
     }
 
     override fun onBindViewHolder(holder: VHolder, position: Int) {
-        val selecitemTxtSelecteds = holder.binding.selecitemTxtSelecteds
+        val selecitemTxtSelecteds = holder.binding.selectitemTxtSelecteds
         val dice = selecteds[position]
 
-        if (dice != 0) {
-            selecitemTxtSelecteds.text = dice.toString()
-        }
+        selecitemTxtSelecteds.text =
+            if (dice != 0) {
+                dice.toString()
+            } else {
+                ""
+            }
 
         holder.itemView.setOnClickListener {
             removeDice(position)
