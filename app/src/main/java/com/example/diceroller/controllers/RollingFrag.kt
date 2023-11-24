@@ -1,17 +1,20 @@
 package com.example.diceroller.controllers
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.animation.addListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.diceroller.MainActivity
 import com.example.diceroller.adapters.RollingAdapter
 import com.example.diceroller.databinding.FragRollingBinding
 import com.example.diceroller.databinding.ItemRollingBinding
+import java.util.Random
 
 class RollingFrag : Fragment() {
 
@@ -23,6 +26,10 @@ class RollingFrag : Fragment() {
 
     private val recyView by lazy {
         binding.rollingRecyViewDices
+    }
+
+    private val rollFab by lazy {
+        binding.rollingFabThrow
     }
 
     private lateinit var rollingAdapter: RollingAdapter
@@ -63,17 +70,9 @@ class RollingFrag : Fragment() {
     }
 
     private fun setupRollFAB() {
-        binding.rollingFabThrow.setOnClickListener {
+        rollFab.setOnClickListener {
             rollingAndResult()
         }
-    }
-
-    private fun rollTheDices(dices: List<Int>) {
-        fun randomResult(dice: Int) : Int {
-            return (0..dice).random()
-        }
-
-
     }
 
     private fun putEmpties(dices: List<Int>) : List<Int> {
@@ -115,21 +114,65 @@ class RollingFrag : Fragment() {
 
     private fun rollingAndResult() {
         for (i in 0 until recyView.childCount) {
-            val dices = mutableListOf<Int>()
             val item = recyView.getChildAt(i)
             val bindedItem = ItemRollingBinding.bind(item)
-//            val diceItem = if (bindedItem.)
+            val durationInMilli = 500L
 
             val img = bindedItem.rollitemImgTest
             img.animate()
                 .rotationBy(720f)
-                .duration = 500
+                .setDuration(durationInMilli)
+                .setListener(object : Animator.AnimatorListener {
+                    override fun onAnimationStart(p0: Animator) {
+                        rollFab.isClickable = false
+                    }
 
-            val txt = bindedItem.rollitemTxtTest
+                    override fun onAnimationEnd(p0: Animator) {
+                        rollFab.isClickable = true
+                    }
 
-            val minValue = 1
-            val maxValue = recyView
-            val valueAnimator = ValueAnimator.ofInt()
+                    override fun onAnimationCancel(p0: Animator) {
+                    }
+
+                    override fun onAnimationRepeat(p0: Animator) {
+                    }
+
+
+                })
+
+            val listFromAdapter = rollingAdapter.dicesAndEmpties
+            val isDice = listFromAdapter[i] != 0
+            if (isDice) {
+                val txt = bindedItem.rollitemTxtTest
+                val minValue = 1
+                val maxValue = listFromAdapter[i]
+
+                val valueAnimator = ValueAnimator.ofInt(minValue, maxValue)
+                with(valueAnimator) {
+                    duration = durationInMilli
+                    addUpdateListener {
+                        txt.text = it.animatedValue.toString()
+                    }
+                    addListener(object : Animator.AnimatorListener {
+                        override fun onAnimationStart(p0: Animator) {
+                        }
+
+                        override fun onAnimationEnd(p0: Animator) {
+                            val random = Random()
+                            val randomNumber = random.nextInt(maxValue - minValue + 1) + minValue
+                            txt.text = randomNumber.toString()
+                        }
+
+                        override fun onAnimationCancel(p0: Animator) {
+                        }
+
+                        override fun onAnimationRepeat(p0: Animator) {
+                        }
+                    })
+                    start()
+                }
+            }
+
         }
     }
 }

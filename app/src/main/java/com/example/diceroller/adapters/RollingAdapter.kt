@@ -5,9 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diceroller.databinding.ItemRollingBinding
 
-class RollingAdapter(private val diceList: List<Int>,) : RecyclerView.Adapter<RollingAdapter.VHolder>() {
-
-    private val pair = diceList.size % 2 == 0
+class RollingAdapter(val dicesAndEmpties: List<Int>,) : RecyclerView.Adapter<RollingAdapter.VHolder>() {
 
     inner class VHolder(val binding: ItemRollingBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -21,10 +19,10 @@ class RollingAdapter(private val diceList: List<Int>,) : RecyclerView.Adapter<Ro
     override fun onBindViewHolder(holder: VHolder, position: Int) {
         val txt = holder.binding.rollitemTxtTest
         val img = holder.binding.rollitemImgTest
-        val isDice = diceList[position] != 0
+        val isDice = dicesAndEmpties[position] != 0
 
         if (isDice){
-            txt.text = diceList[position].toString()
+            txt.text = dicesAndEmpties[position].toString()
         } else {
             txt.text = null
             img.setImageDrawable(null)
@@ -32,6 +30,6 @@ class RollingAdapter(private val diceList: List<Int>,) : RecyclerView.Adapter<Ro
     }
 
     override fun getItemCount(): Int {
-        return diceList.size
+        return dicesAndEmpties.size
     }
 }
