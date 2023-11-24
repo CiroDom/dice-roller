@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.animation.addListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.diceroller.MainActivity
@@ -33,8 +32,6 @@ class RollingFrag : Fragment() {
     }
 
     private lateinit var rollingAdapter: RollingAdapter
-
-    private var nullFAB = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -172,7 +169,6 @@ class RollingFrag : Fragment() {
                     start()
                 }
             }
-
         }
     }
 }
