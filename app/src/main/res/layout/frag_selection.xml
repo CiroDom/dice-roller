@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="@dimen/paddingLayout"
     tools:context=".controllers.SelectionFrag">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -40,8 +40,8 @@
         android:layout_height="72dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/selec_txt_dice_or_dices"
-        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/marginBottomFAB"
         android:text=""/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -51,7 +51,7 @@
         app:layout_constraintTop_toTopOf="@id/selec_fab_next"
         app:layout_constraintEnd_toStartOf="@id/selec_fab_next"
         app:layout_constraintBottom_toBottomOf="@id/selec_fab_next"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginHorizontal="@dimen/marginHoriFAB"
         android:src="@drawable/baseline_remove"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toTopOf="@id/selec_fab_next"
         app:layout_constraintStart_toEndOf="@id/selec_fab_next"
         app:layout_constraintBottom_toBottomOf="@id/selec_fab_next"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginHorizontal="@dimen/marginHoriFAB"
         android:src="@drawable/baseline_add"/>
 
     <TextView android:id="@+id/selec_txt_head"
@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/selec_fab_next"
-        android:layout_marginVertical="8dp"
+        android:layout_marginVertical="@dimen/marginVerticalText"
         android:text="Roll"
         android:textSize="@dimen/textLetterNormal"/>
 
@@ -101,8 +101,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selec_fab_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginVertical="@dimen/marginVerticalText"
         android:text="dice"
         android:textSize="@dimen/textLetterNormal"/>
 

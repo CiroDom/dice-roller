@@ -9,4 +9,13 @@
 
     <dimen name="bigFAB">72dp</dimen>
     <dimen name="smallFAB">56dp</dimen>
+    <dimen name="selecItem">40dp</dimen>
+    <dimen name="rollingItem">128dp</dimen>
+
+    <dimen name="marginBottomFAB">24dp</dimen>
+    <dimen name="marginHoriSelec">8dp</dimen>
+    <dimen name="marginHoriFAB">8dp</dimen>
+    <dimen name="marginVerticalText">8dp</dimen>
+
+    <dimen name="paddingLayout">16dp</dimen>
 </resources>
