@@ -19,13 +19,15 @@ class RollingAdapter(private val diceList: List<Int>,) : RecyclerView.Adapter<Ro
     }
 
     override fun onBindViewHolder(holder: VHolder, position: Int) {
-        val testTxt = holder.binding.rollitemTxtTest
+        val txt = holder.binding.rollitemTxtTest
+        val img = holder.binding.rollitemImgTest
         val isDice = diceList[position] != 0
 
         if (isDice){
-            testTxt.text = diceList[position].toString()
+            txt.text = diceList[position].toString()
         } else {
-            testTxt.text = null
+            txt.text = null
+            img.setImageDrawable(null)
         }
     }
 

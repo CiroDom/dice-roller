@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView android:id="@+id/selecitem_img_selecteds"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,6 +23,7 @@
         app:layout_constraintTop_toTopOf="@id/selecitem_img_selecteds"
         app:layout_constraintEnd_toEndOf="@id/selecitem_img_selecteds"
         app:layout_constraintBottom_toBottomOf="@id/selecitem_img_selecteds"
-        android:text=""/>
+        android:text=""
+        android:textSize="@dimen/textNumberSelecteds"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

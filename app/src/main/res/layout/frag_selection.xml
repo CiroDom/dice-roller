@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".controllers.SelectionActivity">
+    tools:context=".controllers.SelectionFrag">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/selec_recyview_dices"
@@ -28,26 +28,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/selec_txt_rolling"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         tools:listitem="@layout/item_selecteds"
         tools:itemCount="3"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:orientation="horizontal"/>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/selec_fab_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/selec_txt_dice_or_dices"
         android:layout_marginBottom="8dp"
-        android:text="X"/>
+        android:text=""/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/selec_fab_minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/selec_fab_next"
         app:layout_constraintEnd_toStartOf="@id/selec_fab_next"
         app:layout_constraintBottom_toBottomOf="@id/selec_fab_next"
         android:layout_marginHorizontal="8dp"
@@ -57,6 +58,7 @@
         android:id="@+id/selec_fab_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/selec_fab_next"
         app:layout_constraintStart_toEndOf="@id/selec_fab_next"
         app:layout_constraintBottom_toBottomOf="@id/selec_fab_next"
         android:layout_marginHorizontal="8dp"
@@ -70,6 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/selec_recyview_dices"
         android:text="@string/header"
+        android:textSize="@dimen/textLetterHead"
         android:textAlignment="center"/>
 
     <TextView android:id="@+id/selec_txt_rolling"
@@ -79,7 +82,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/selec_fab_next"
         android:layout_marginVertical="8dp"
-        android:text="Roll"/>
+        android:text="Roll"
+        android:textSize="@dimen/textLetterNormal"/>
+
+    <TextView android:id="@+id/selec_txt_number_dices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/selec_fab_next"
+        app:layout_constraintTop_toTopOf="@id/selec_fab_next"
+        app:layout_constraintEnd_toEndOf="@id/selec_fab_next"
+        app:layout_constraintBottom_toBottomOf="@id/selec_fab_next"
+        android:elevation="24dp"
+        android:text="1"
+        android:textSize="@dimen/textNumberFAB"
+        android:textStyle="bold"/>
 
     <TextView android:id="@+id/selec_txt_dice_or_dices"
         android:layout_width="wrap_content"
@@ -87,6 +103,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="dice"/>
+        android:text="dice"
+        android:textSize="@dimen/textLetterNormal"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

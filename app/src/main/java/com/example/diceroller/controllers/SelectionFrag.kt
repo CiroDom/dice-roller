@@ -1,16 +1,20 @@
 package com.example.diceroller.controllers
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.diceroller.MainActivity
 import com.example.diceroller.R
 import com.example.diceroller.adapters.DicesAdapter
 import com.example.diceroller.adapters.SelectedsAdapter
-import com.example.diceroller.databinding.ActivitySelectionBinding
+import com.example.diceroller.databinding.FragSelectionBinding
 
-class SelectionActivity : AppCompatActivity() {
+class SelectionFrag : Fragment() {
 
     private val dices = listOf<Int>(2, 4, 6, 8, 10, 12, 20, 100)
 
@@ -19,7 +23,7 @@ class SelectionActivity : AppCompatActivity() {
     private val selecteds = mutableListOf<Int>(noDice)
 
     private val binding by lazy {
-        ActivitySelectionBinding.inflate(layoutInflater)
+        FragSelectionBinding.inflate(layoutInflater)
     }
 
     private val dicesRecyView by lazy {
@@ -30,8 +34,8 @@ class SelectionActivity : AppCompatActivity() {
         binding.selecRecyviewSelecteds
     }
 
-    private val extendFAB by lazy {
-        binding.selecFabNext
+    private val numberText by lazy {
+        binding.selecTxtNumberDices
     }
 
     private val diceOrDices by lazy {
@@ -40,9 +44,16 @@ class SelectionActivity : AppCompatActivity() {
 
     private lateinit var selectedsAdapter: SelectedsAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setupGridRecyView()
         setupHoriRecyView()
@@ -67,7 +78,7 @@ class SelectionActivity : AppCompatActivity() {
 
     private fun setupGridRecyView() {
         val spanCount = 2
-        val gridLayoutManager = GridLayoutManager(this, spanCount)
+        val gridLayoutManager = GridLayoutManager(requireContext(), spanCount)
         val dicesAdapter = DicesAdapter(dices, ::addDice)
 
         with(dicesRecyView) {
@@ -82,7 +93,7 @@ class SelectionActivity : AppCompatActivity() {
         selectedsAdapter = SelectedsAdapter(selecteds, ::removeDice)
 
         with(selectedsRecyView) {
-            layoutManager = LinearLayoutManager(this@SelectionActivity, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = selectedsAdapter
         }
         
@@ -114,7 +125,7 @@ class SelectionActivity : AppCompatActivity() {
             diceOrDices.text = getString(R.string.dices)
         }
 
-        extendFAB.text = selecteds.size.toString()
+        numberText.text = selecteds.size.toString()
 
         selectedsAdapter.notifyDataSetChanged()
     }
@@ -134,7 +145,7 @@ class SelectionActivity : AppCompatActivity() {
             diceOrDices.text = getString(R.string.dice)
         }
 
-        extendFAB.text = selecteds.size.toString()
+        numberText.text = selecteds.size.toString()
 
         selectedsAdapter.notifyDataSetChanged()
     }
@@ -144,28 +155,12 @@ class SelectionActivity : AppCompatActivity() {
             return
         }
 
-        val pair = selecteds.size % 2 == 0
-        val selectedsWithNoDice = mutableListOf<Int>()
-        selectedsWithNoDice.addAll(selecteds)
+        val selectedsIntArray = selecteds.toIntArray()
+        val bundle = Bundle()
+        bundle.putIntArray(MainActivity.DICE_KEY, selectedsIntArray)
 
-        if (pair) {
-            for (i in 0 until selecteds.size) {
-                if (i % 2 != 0) {
-                    selectedsWithNoDice.add(index = i, noDice)
-                }
-            }
-        } else {
-            for (i in 0 until selecteds.size) {
-                if (i % 2 == 0) {
-                    selectedsWithNoDice.add(index = i, noDice)
-                }
-            }
-        }
-
-        val selectedsIntArray = selectedsWithNoDice.toIntArray()
-        val intent = Intent(this@SelectionActivity, RollingActivity::class.java)
-        intent.putExtra("dices", selectedsIntArray)
-        startActivity(intent)
+        val navController = findNavController()
+        navController.navigate(R.id.nav_action_selec_to_roll, bundle)
     }
 
     private fun oneNoDice() : Boolean {

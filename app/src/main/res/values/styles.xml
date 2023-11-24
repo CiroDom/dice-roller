@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.DiceRoller" parent="Base.Theme.DiceRoller" />
+
+    <style name="Theme.DiceRoller.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="Theme.DiceRoller.PopUpOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+</resources>
