@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Button android:id="@+id/diceitem_button_dice"
-        android:layout_width="match_parent"
+    <ImageView android:id="@+id/diceitem_img_dice"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -13,8 +13,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginHorizontal="24dp"
         android:layout_marginVertical="16dp"
-        android:background="@drawable/dice_button"
+        android:src="@drawable/shield_test"/>
+
+    <TextView android:id="@+id/diceitem_txt_dice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/diceitem_img_dice"
+        app:layout_constraintTop_toTopOf="@id/diceitem_img_dice"
+        app:layout_constraintEnd_toEndOf="@id/diceitem_img_dice"
+        app:layout_constraintBottom_toBottomOf="@id/diceitem_img_dice"
+        android:soundEffectsEnabled="true"
         android:text="X"
-        android:textSize="@dimen/textNumberDice"/>
+        android:textSize="@dimen/textNumberDice"
+        android:textStyle="bold"
+        android:textColor="@color/white" />
     
 </androidx.constraintlayout.widget.ConstraintLayout>

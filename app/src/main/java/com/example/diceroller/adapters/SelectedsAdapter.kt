@@ -7,7 +7,9 @@ import com.example.diceroller.databinding.ItemSelectedsBinding
 
 class SelectedsAdapter(
     private val selecteds: MutableList<Int>,
-    private val removeDice: (Int) -> Unit) : RecyclerView.Adapter<SelectedsAdapter.VHolder>() {
+    private val removeDice: (Int) -> Unit,
+    private val removeSpace: (Int) -> Unit
+    ) : RecyclerView.Adapter<SelectedsAdapter.VHolder>() {
 
     inner class VHolder(val binding: ItemSelectedsBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -30,7 +32,12 @@ class SelectedsAdapter(
             }
 
         holder.itemView.setOnClickListener {
-            removeDice(position)
+            if (dice == 0 && selecteds.size >= 2) {
+                removeSpace(position)
+            }
+            if (dice != 0) {
+                removeDice(position)
+            }
         }
     }
 

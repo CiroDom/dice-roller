@@ -1,6 +1,8 @@
 package com.example.diceroller.adapters
 
 import android.view.LayoutInflater
+import android.view.SoundEffectConstants
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diceroller.databinding.ItemDicesBinding
@@ -17,14 +19,26 @@ class DicesAdapter(private val dices: List<Int>, private val addDice: (Int) -> U
     }
 
     override fun onBindViewHolder(holder: VHolder, position: Int) {
-        val diceButton = holder.binding.diceitemButtonDice
-        with(diceButton) {
-            val dice = dices[position]
+        val hbinding = holder.binding
+        val dice = dices[position]
 
-            text = dice.toString()
-
-            setOnClickListener {
+        with(hbinding) {
+            fun add(view: View) {
+                val dice = dices[position]
                 addDice(dice)
+
+                view.playSoundEffect(SoundEffectConstants.CLICK)
+            }
+
+            diceitemImgDice.setOnClickListener { imgView ->
+                add(imgView)
+            }
+
+            with(diceitemTxtDice) {
+                setOnClickListener { txtView ->
+                    add(txtView)
+                }
+                text = dice.toString()
             }
         }
     }

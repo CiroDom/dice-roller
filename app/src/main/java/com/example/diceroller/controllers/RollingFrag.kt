@@ -113,11 +113,11 @@ class RollingFrag : Fragment() {
         for (i in 0 until recyView.childCount) {
             val item = recyView.getChildAt(i)
             val bindedItem = ItemRollingBinding.bind(item)
-            val durationInMilli = 500L
+            val durationInMilli = 800L
 
             val img = bindedItem.rollitemImgTest
             img.animate()
-                .rotationBy(720f)
+                .rotationBy(1440f)
                 .setDuration(durationInMilli)
                 .setListener(object : Animator.AnimatorListener {
                     override fun onAnimationStart(p0: Animator) {

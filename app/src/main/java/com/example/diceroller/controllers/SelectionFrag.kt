@@ -90,7 +90,7 @@ class SelectionFrag : Fragment() {
     }
 
     private fun setupHoriRecyView() {
-        selectedsAdapter = SelectedsAdapter(selecteds, ::removeDice)
+        selectedsAdapter = SelectedsAdapter(selecteds, ::removeDice, ::removeSpace)
 
         with(selectedsRecyView) {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -116,6 +116,21 @@ class SelectionFrag : Fragment() {
         selectedsAdapter.notifyDataSetChanged()
     }
 
+    private fun removeSpace(position: Int) {
+        selecteds.removeAt(position)
+
+        updateDiceQuant()
+    }
+
+    private fun cleanDiceList() {
+        with(selecteds) {
+            clear()
+            add(noDice)
+        }
+
+        updateDiceQuant()
+    }
+
     private fun increseDiceQuant() {
         if (selecteds.size >= 6) return
 
@@ -124,10 +139,7 @@ class SelectionFrag : Fragment() {
         if (selecteds.size > 1) {
             diceOrDices.text = getString(R.string.dices)
         }
-
-        numberText.text = selecteds.size.toString()
-
-        selectedsAdapter.notifyDataSetChanged()
+        updateDiceQuant()
     }
 
     private fun decreaseDiceQuant() {
@@ -144,7 +156,10 @@ class SelectionFrag : Fragment() {
         if (selecteds.size == 1) {
             diceOrDices.text = getString(R.string.dice)
         }
+        updateDiceQuant()
+    }
 
+    private fun updateDiceQuant() {
         numberText.text = selecteds.size.toString()
 
         selectedsAdapter.notifyDataSetChanged()
