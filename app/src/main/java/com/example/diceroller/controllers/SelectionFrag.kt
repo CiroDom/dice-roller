@@ -111,7 +111,7 @@ class SelectionFrag : Fragment() {
                 }
             }
         }
-        else {
+        else if (selecteds.size < 6){
             selecteds.add(dice)
 
             updateDiceQuant()

@@ -24,9 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val toolbar = binding.mainToolbar
-        setSupportActionBar(toolbar)
-
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_frag_host) as NavHostFragment
         navController = navHostFragment.navController
 
