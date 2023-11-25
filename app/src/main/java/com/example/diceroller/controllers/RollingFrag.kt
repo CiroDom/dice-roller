@@ -156,7 +156,7 @@ class RollingFrag : Fragment() {
 
                         override fun onAnimationEnd(p0: Animator) {
                             val random = Random()
-                            val randomNumber = random.nextInt(maxValue - minValue + 1) + minValue
+                            val randomNumber = random.nextInt(maxValue) + minValue
                             txt.text = randomNumber.toString()
                         }
 

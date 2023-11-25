@@ -103,12 +103,20 @@ class SelectionFrag : Fragment() {
     }
 
     private fun addDice(dice: Int) {
-        for (i in 0 until selecteds.size) {
-            if (selecteds[i] == noDice) {
-                selecteds[i] = dice
-                break
+        if (selecteds.contains(noDice)) {
+            for (i in 0 until selecteds.size) {
+                if (selecteds[i] == noDice) {
+                    selecteds[i] = dice
+                    break
+                }
             }
         }
+        else {
+            selecteds.add(dice)
+
+            updateDiceQuant()
+        }
+
         selectedsAdapter.notifyDataSetChanged()
     }
 

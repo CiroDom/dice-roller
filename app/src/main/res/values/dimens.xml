@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="textNumberRolling">24sp</dimen>
-    <dimen name="textLetterHead">21sp</dimen>
     <dimen name="textNumberDice">21sp</dimen>
     <dimen name="textNumberFAB">21sp</dimen>
     <dimen name="textNumberSelecteds">18sp</dimen>
+
+    <dimen name="textLetterHead">21sp</dimen>
     <dimen name="textLetterNormal">18sp</dimen>
 
     <dimen name="bigFAB">72dp</dimen>
