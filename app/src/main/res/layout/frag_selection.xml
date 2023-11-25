@@ -7,6 +7,17 @@
     android:padding="@dimen/paddingLayout"
     tools:context=".controllers.SelectionFrag">
 
+    <TextView android:id="@+id/selec_txt_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/selec_recyview_dices"
+        android:text="@string/header"
+        android:textSize="@dimen/textLetterHead"
+        android:textAlignment="center"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/selec_recyview_dices"
         android:layout_width="0dp"
@@ -63,17 +74,6 @@
         app:layout_constraintBottom_toBottomOf="@id/selec_fab_next"
         android:layout_marginHorizontal="@dimen/marginHoriFAB"
         android:src="@drawable/baseline_add"/>
-
-    <TextView android:id="@+id/selec_txt_head"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/selec_recyview_dices"
-        android:text="@string/header"
-        android:textSize="@dimen/textLetterHead"
-        android:textAlignment="center"/>
 
     <TextView android:id="@+id/selec_txt_rolling"
         android:layout_width="wrap_content"
