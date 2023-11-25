@@ -1,7 +1,9 @@
 package com.example.diceroller.controllers
 
 import android.os.Bundle
+import android.view.GestureDetector
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -118,15 +120,6 @@ class SelectionFrag : Fragment() {
 
     private fun removeSpace(position: Int) {
         selecteds.removeAt(position)
-
-        updateDiceQuant()
-    }
-
-    private fun cleanDiceList() {
-        with(selecteds) {
-            clear()
-            add(noDice)
-        }
 
         updateDiceQuant()
     }

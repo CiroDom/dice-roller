@@ -28,6 +28,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/marginBottomFAB"/>
+        android:layout_marginBottom="@dimen/marginBottomFAB"
+        android:src="@drawable/baseline_casino"
+        app:fabCustomSize="@dimen/bigFAB"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
