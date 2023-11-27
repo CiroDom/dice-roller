@@ -1,23 +1,23 @@
-package com.example.diceroller.controllers
+package com.example.diceroller.controllers.frags
 
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.diceroller.MainActivity
+import com.example.diceroller.controllers.actvs.MainActivity
 import com.example.diceroller.adapters.RollingAdapter
 import com.example.diceroller.databinding.FragRollingBinding
 import com.example.diceroller.databinding.ItemRollingBinding
 import java.util.Random
 
 class RollingFrag : Fragment() {
-
-    private lateinit var dices: List<Int>
 
     private val binding by lazy {
         FragRollingBinding.inflate(layoutInflater)
@@ -31,7 +31,14 @@ class RollingFrag : Fragment() {
         binding.rollingFabThrow
     }
 
+    private lateinit var dices: List<Int>
+
     private lateinit var rollingAdapter: RollingAdapter
+
+    private var resultList = mutableListOf<Int>()
+
+    private val durationInMilli = 800L
+    private val durationExtra = 200L
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,8 +53,6 @@ class RollingFrag : Fragment() {
 
         dices = arguments?.getIntArray(MainActivity.DICE_KEY)!!.toList()
         dices = putEmpties(dices)
-
-        Log.i("dices", "$dices")
 
         setupRecyView(dices)
         setupRollFAB()
@@ -68,7 +73,9 @@ class RollingFrag : Fragment() {
 
     private fun setupRollFAB() {
         rollFab.setOnClickListener {
-            rollingAndResult()
+            resultList.clear()
+            rolling()
+            setTotalResult()
         }
     }
 
@@ -109,15 +116,43 @@ class RollingFrag : Fragment() {
         return dicesAndEmpties.toList()
     }
 
-    private fun rollingAndResult() {
-        for (i in 0 until recyView.childCount) {
-            val item = recyView.getChildAt(i)
-            val bindedItem = ItemRollingBinding.bind(item)
-            val durationInMilli = 800L
+    private fun rolling() {
 
-            val img = bindedItem.rollitemImgTest
+        fun rollDice(resultTxt: TextView, maxVal: Int, minVal: Int) {
+            val random = Random()
+            val resultDice = random.nextInt(maxVal) + minVal
+            resultList.add(resultDice)
+            resultTxt.text = resultDice.toString()
+        }
+
+        fun playValueAnimation(resultTxt: TextView, minVal: Int, maxVal: Int, durationInMilli: Long) {
+            val valueAnimator = ValueAnimator.ofInt(minVal, maxVal)
+            with(valueAnimator) {
+                duration = durationInMilli
+                addUpdateListener {
+                    resultTxt.text = it.animatedValue.toString()
+                }
+                addListener(object : Animator.AnimatorListener {
+                    override fun onAnimationStart(p0: Animator) {
+                    }
+
+                    override fun onAnimationEnd(p0: Animator) {
+                        rollDice(resultTxt, maxVal, minVal)
+                    }
+
+                    override fun onAnimationCancel(p0: Animator) {
+                    }
+
+                    override fun onAnimationRepeat(p0: Animator) {
+                    }
+                })
+                start()
+            }
+        }
+
+        fun rotateDiceImg(img: ImageView, rotation: Float, durationInMilli: Long) {
             img.animate()
-                .rotationBy(1440f)
+                .rotationBy(rotation)
                 .setDuration(durationInMilli)
                 .setListener(object : Animator.AnimatorListener {
                     override fun onAnimationStart(p0: Animator) {
@@ -137,38 +172,32 @@ class RollingFrag : Fragment() {
 
                 })
 
+        }
+
+        for (i in 0 until recyView.childCount) {
+            val item = recyView.getChildAt(i)
             val listFromAdapter = rollingAdapter.dicesAndEmpties
             val isDice = listFromAdapter[i] != 0
             if (isDice) {
+                val bindedItem = ItemRollingBinding.bind(item)
+
+                val rotation = 1440f
+                val img = bindedItem.rollitemImgTest
+                rotateDiceImg(img, rotation, durationInMilli)
+
                 val txt = bindedItem.rollitemTxtTest
                 val minValue = 1
                 val maxValue = listFromAdapter[i]
-
-                val valueAnimator = ValueAnimator.ofInt(minValue, maxValue)
-                with(valueAnimator) {
-                    duration = durationInMilli
-                    addUpdateListener {
-                        txt.text = it.animatedValue.toString()
-                    }
-                    addListener(object : Animator.AnimatorListener {
-                        override fun onAnimationStart(p0: Animator) {
-                        }
-
-                        override fun onAnimationEnd(p0: Animator) {
-                            val random = Random()
-                            val randomNumber = random.nextInt(maxValue) + minValue
-                            txt.text = randomNumber.toString()
-                        }
-
-                        override fun onAnimationCancel(p0: Animator) {
-                        }
-
-                        override fun onAnimationRepeat(p0: Animator) {
-                        }
-                    })
-                    start()
-                }
+                playValueAnimation(txt, minValue, maxValue, durationInMilli)
             }
         }
     }
+
+    private fun setTotalResult() {
+        val handler = Handler()
+        handler.postDelayed({
+            binding.rollingTxtResult.text = resultList.sum().toString()
+        }, durationInMilli + durationExtra)
+    }
+
 }

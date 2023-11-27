@@ -1,16 +1,14 @@
-package com.example.diceroller.controllers
+package com.example.diceroller.controllers.frags
 
 import android.os.Bundle
-import android.view.GestureDetector
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.diceroller.MainActivity
+import com.example.diceroller.controllers.actvs.MainActivity
 import com.example.diceroller.R
 import com.example.diceroller.adapters.DicesAdapter
 import com.example.diceroller.adapters.SelectedsAdapter
@@ -21,6 +19,8 @@ class SelectionFrag : Fragment() {
     private val dices = listOf<Int>(2, 4, 6, 8, 10, 12, 20, 100)
 
     private val noDice = 0
+
+    private val maxDiceQuant = 7
 
     private val selecteds = mutableListOf<Int>(noDice)
 
@@ -111,7 +111,7 @@ class SelectionFrag : Fragment() {
                 }
             }
         }
-        else if (selecteds.size < 6){
+        else if (selecteds.size < maxDiceQuant){
             selecteds.add(dice)
 
             updateDiceQuant()
@@ -133,7 +133,7 @@ class SelectionFrag : Fragment() {
     }
 
     private fun increseDiceQuant() {
-        if (selecteds.size >= 6) return
+        if (selecteds.size >= maxDiceQuant) return
 
         selecteds.add(noDice)
 

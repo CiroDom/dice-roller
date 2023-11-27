@@ -13,7 +13,7 @@
         android:theme="@style/Theme.DiceRoller"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".controllers.actvs.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,10 +22,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controllers.RollingFrag"
+            android:name=".controllers.frags.RollingFrag"
             android:exported="false" />
         <activity
-            android:name=".controllers.SelectionFrag"
+            android:name=".controllers.frags.SelectionFrag"
             android:exported="false">
         </activity>
     </application>

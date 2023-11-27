@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/paddingLayout"
-    tools:context=".controllers.SelectionFrag">
+    tools:context=".controllers.frags.SelectionFrag">
 
     <TextView android:id="@+id/selec_txt_head"
         android:layout_width="wrap_content"

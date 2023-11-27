@@ -1,4 +1,4 @@
-package com.example.diceroller
+package com.example.diceroller.controllers.actvs
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

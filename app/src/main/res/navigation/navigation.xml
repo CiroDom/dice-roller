@@ -6,14 +6,14 @@
     app:startDestination="@id/nav_selec">
 
     <fragment android:id="@+id/nav_selec"
-        android:name="com.example.diceroller.controllers.SelectionFrag"
+        android:name="com.example.diceroller.controllers.frags.SelectionFrag"
         tools:layout="@layout/frag_selection">
         <action android:id="@+id/nav_action_selec_to_roll"
             app:destination="@id/nav_roll"/>
     </fragment>
 
     <fragment android:id="@+id/nav_roll"
-        android:name="com.example.diceroller.controllers.RollingFrag"
+        android:name="com.example.diceroller.controllers.frags.RollingFrag"
         tools:layout="@layout/frag_rolling">
     </fragment>
 
