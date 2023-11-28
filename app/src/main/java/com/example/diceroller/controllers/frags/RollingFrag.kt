@@ -33,8 +33,6 @@ class RollingFrag : Fragment() {
 
     private lateinit var dices: List<Int>
 
-    private lateinit var drawableIds: List<Int>
-
     private lateinit var rollingAdapter: RollingAdapter
 
     private var resultList = mutableListOf<Int>()
@@ -55,17 +53,15 @@ class RollingFrag : Fragment() {
 
         dices = arguments?.getIntArray(KeyRepo.DICE_KEY)!!.toList()
         dices = putEmpties(dices)
-        drawableIds = arguments?.getIntArray(KeyRepo.DICE_DRAW_ID_KEY)!!.toList()
-        drawableIds = putEmpties(drawableIds)
 
-        setupRecyView(dices, drawableIds)
+        setupRecyView(dices)
         setupRollFAB()
     }
 
-    private fun setupRecyView(dices: List<Int>, drawableIds: List<Int>) {
+    private fun setupRecyView(dices: List<Int>) {
         val spanCount = 3
         val gridLayoutManager = GridLayoutManager(requireContext(), spanCount)
-        rollingAdapter = RollingAdapter(requireContext(), dices, drawableIds)
+        rollingAdapter = RollingAdapter(dices)
 
         with(recyView) {
             layoutManager = gridLayoutManager

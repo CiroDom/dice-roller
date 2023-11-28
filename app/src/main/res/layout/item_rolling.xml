@@ -12,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="@dimen/marginRollingItem"
-        android:src="@drawable/d100_128"
+        android:src="@drawable/icon_dice"
         android:scaleType="centerInside"/>
 
     <TextView android:id="@+id/rollitem_txt_test"

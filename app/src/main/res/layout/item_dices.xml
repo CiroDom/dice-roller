@@ -13,7 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginHorizontal="24dp"
         android:layout_marginVertical="16dp"
-        android:src="@drawable/d100_128"
+        android:src="@drawable/icon_dice"
         android:scaleType="fitCenter"/>
 
     <TextView android:id="@+id/diceitem_txt_dice"

@@ -8,11 +8,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diceroller.R
 import com.example.diceroller.databinding.ItemSelectedsBinding
-import com.example.diceroller.models.Dice
 
 class SelectedsAdapter(
     private val context: Context,
-    private val dicesAndEmpties: List<Dice>,
+    private val dicesAndEmpties: List<Int>,
     private val removeDice: (Int) -> Unit,
     private val removeSpace: (Int) -> Unit
     ) : RecyclerView.Adapter<SelectedsAdapter.VHolder>() {
@@ -30,14 +29,14 @@ class SelectedsAdapter(
         val selecitemImg = holder.binding.selecitemImgSelecteds
         val selecitemTxt = holder.binding.selectitemTxtSelecteds
         val dice = dicesAndEmpties[position]
-        val isDice = dice.sides != 0
+        val isDice = dice != 0
 
         if (isDice) {
-            selecitemImg.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, dice.color))
-            selecitemTxt.text = dice.sides.toString()
+            selecitemImg.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.colorDice))
+            selecitemTxt.text = "D${dice.toString()}"
         }
         else {
-            selecitemImg.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, dice.color))
+            selecitemImg.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.gray))
             selecitemTxt.text = ""
         }
 

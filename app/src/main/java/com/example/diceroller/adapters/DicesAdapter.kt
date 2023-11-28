@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.diceroller.R
 import com.example.diceroller.databinding.ItemDicesBinding
-import com.example.diceroller.models.Dice
 
 class DicesAdapter(
-    private val context: Context,
-    private val dices: List<Dice>,
-    private val addDice: (Dice) -> Unit) : RecyclerView.Adapter<DicesAdapter.VHolder>() {
+    private val dices: List<Int>,
+    private val addDice: (Int) -> Unit) : RecyclerView.Adapter<DicesAdapter.VHolder>() {
 
     inner class VHolder(val binding: ItemDicesBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -31,20 +30,11 @@ class DicesAdapter(
 
         with(hbinding) {
 
-            fun setImgDice(img: ImageView) {
-                val drawableId = dice.drawableId
-                val drawable = ContextCompat.getDrawable(context, drawableId)
-
-                img.setImageDrawable(drawable)
-            }
-
             fun add(view: View) {
                 addDice(dice)
 
                 view.playSoundEffect(SoundEffectConstants.CLICK)
             }
-
-            setImgDice(diceitemImgDice)
 
             diceitemImgDice.setOnClickListener { imgView ->
                 add(imgView)
@@ -54,7 +44,7 @@ class DicesAdapter(
                 setOnClickListener { txtView ->
                     add(txtView)
                 }
-                text = dice.sides.toString()
+                text = "D${dice.toString()}"
             }
         }
     }

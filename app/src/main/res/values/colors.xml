@@ -4,12 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#DADADA</color>
 
-    <color name="colorD2">#FF5722</color>
-    <color name="colorD4">#4CAF50</color>
-    <color name="colorD6">#9C27B0</color>
-    <color name="colorD8">#FFC107</color>
-    <color name="colorD10">#2196F3</color>
-    <color name="colorD12">#E91E63</color>
-    <color name="colorD20">#673AB7</color>
-    <color name="colorD100">#e53935</color>
+    <color name="colorDice">#fcaf04</color>
 </resources>
