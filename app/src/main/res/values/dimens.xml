@@ -8,10 +8,10 @@
     <dimen name="textLetterHead">21sp</dimen>
     <dimen name="textLetterNormal">18sp</dimen>
 
-    <dimen name="bigFAB">72dp</dimen>
-    <dimen name="smallFAB">56dp</dimen>
-    <dimen name="diceItem">64dp</dimen>
-    <dimen name="selecItem">40dp</dimen>
+    <dimen name="bigFAB">76dp</dimen>
+    <dimen name="smallFAB">60dp</dimen>
+    <dimen name="diceItem">88dp</dimen>
+    <dimen name="selecItem">44dp</dimen>
     <dimen name="rollingItem">128dp</dimen>
 
     <dimen name="marginBottomFAB">24dp</dimen>
