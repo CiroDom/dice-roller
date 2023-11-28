@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.DiceRoller" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/green_500</item>
-        <item name="colorPrimaryVariant">@color/green_700</item>
+        <item name="colorPrimary">#008080</item>
+        <item name="colorPrimaryVariant">#004040</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/green_700</item>
-        <item name="colorSecondaryVariant">@color/red_700</item>
+        <item name="colorSecondary">#008080</item>
+        <item name="colorSecondaryVariant">#9370DB</item>
         <item name="colorOnSecondary">@color/black</item>
 
         <!-- Status bar color. -->

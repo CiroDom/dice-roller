@@ -96,7 +96,8 @@
         android:elevation="24dp"
         android:text="1"
         android:textSize="@dimen/textNumberFAB"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
 
     <TextView android:id="@+id/selec_txt_dice_or_dices"
         android:layout_width="wrap_content"

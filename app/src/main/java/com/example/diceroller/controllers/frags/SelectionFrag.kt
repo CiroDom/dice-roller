@@ -1,9 +1,12 @@
 package com.example.diceroller.controllers.frags
 
+import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,6 +16,7 @@ import com.example.diceroller.R
 import com.example.diceroller.adapters.DicesAdapter
 import com.example.diceroller.adapters.SelectedsAdapter
 import com.example.diceroller.databinding.FragSelectionBinding
+import com.google.android.material.snackbar.Snackbar
 
 class SelectionFrag : Fragment() {
 
@@ -168,6 +172,19 @@ class SelectionFrag : Fragment() {
 
     private fun goToRollingActv() {
         if (selecteds.contains(noDice)) {
+            val msgEnd =
+                if (selecteds.size == 1) getString(R.string.dice)
+                else getString(R.string.dices)
+
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.snackbar_warning, selecteds.size, msgEnd),
+                Toast.LENGTH_SHORT
+            ).apply {
+                setGravity(Gravity.CENTER, 0, 0)
+                show()
+            }
+
             return
         }
 
