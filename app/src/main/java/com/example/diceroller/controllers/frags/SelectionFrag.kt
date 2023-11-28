@@ -1,6 +1,5 @@
 package com.example.diceroller.controllers.frags
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -16,7 +15,6 @@ import com.example.diceroller.R
 import com.example.diceroller.adapters.DicesAdapter
 import com.example.diceroller.adapters.SelectedsAdapter
 import com.example.diceroller.databinding.FragSelectionBinding
-import com.google.android.material.snackbar.Snackbar
 
 class SelectionFrag : Fragment() {
 
@@ -24,7 +22,7 @@ class SelectionFrag : Fragment() {
 
     private val noDice = 0
 
-    private val maxDiceQuant = 7
+    private val maxDiceQuant = 6
 
     private val selecteds = mutableListOf<Int>(noDice)
 
@@ -85,7 +83,7 @@ class SelectionFrag : Fragment() {
     private fun setupGridRecyView() {
         val spanCount = 2
         val gridLayoutManager = GridLayoutManager(requireContext(), spanCount)
-        val dicesAdapter = DicesAdapter(dices, ::addDice)
+        val dicesAdapter = DicesAdapter(requireContext(), dices, ::addDice)
 
         with(dicesRecyView) {
             layoutManager = gridLayoutManager
@@ -96,7 +94,7 @@ class SelectionFrag : Fragment() {
     }
 
     private fun setupHoriRecyView() {
-        selectedsAdapter = SelectedsAdapter(selecteds, ::removeDice, ::removeSpace)
+        selectedsAdapter = SelectedsAdapter(requireContext(), selecteds, ::removeDice, ::removeSpace)
 
         with(selectedsRecyView) {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -178,7 +176,7 @@ class SelectionFrag : Fragment() {
 
             Toast.makeText(
                 requireContext(),
-                getString(R.string.snackbar_warning, selecteds.size, msgEnd),
+                getString(R.string.toast_warning, selecteds.size, msgEnd),
                 Toast.LENGTH_SHORT
             ).apply {
                 setGravity(Gravity.CENTER, 0, 0)
