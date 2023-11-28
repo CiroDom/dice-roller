@@ -10,21 +10,23 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.diceroller.controllers.actvs.MainActivity
 import com.example.diceroller.R
 import com.example.diceroller.adapters.DicesAdapter
 import com.example.diceroller.adapters.SelectedsAdapter
 import com.example.diceroller.databinding.FragSelectionBinding
+import com.example.diceroller.models.Dice
+import com.example.diceroller.repos.DiceRepo
+import com.example.diceroller.repos.KeyRepo
 
 class SelectionFrag : Fragment() {
 
-    private val dices = listOf<Int>(2, 4, 6, 8, 10, 12, 20, 100)
+    private val dices = DiceRepo().dices
 
-    private val noDice = 0
+    private val noDice = dices[0]
 
     private val maxDiceQuant = 6
 
-    private val selecteds = mutableListOf<Int>(noDice)
+    private val selecteds = mutableListOf<Dice>(noDice)
 
     private val binding by lazy {
         FragSelectionBinding.inflate(layoutInflater)
@@ -83,7 +85,8 @@ class SelectionFrag : Fragment() {
     private fun setupGridRecyView() {
         val spanCount = 2
         val gridLayoutManager = GridLayoutManager(requireContext(), spanCount)
-        val dicesAdapter = DicesAdapter(requireContext(), dices, ::addDice)
+        val actualDices = dices - dices[0]
+        val dicesAdapter = DicesAdapter(requireContext(), actualDices, ::addDice)
 
         with(dicesRecyView) {
             layoutManager = gridLayoutManager
@@ -104,7 +107,7 @@ class SelectionFrag : Fragment() {
         selectedsAdapter.notifyDataSetChanged()
     }
 
-    private fun addDice(dice: Int) {
+    private fun addDice(dice: Dice) {
         if (selecteds.contains(noDice)) {
             for (i in 0 until selecteds.size) {
                 if (selecteds[i] == noDice) {
@@ -186,9 +189,11 @@ class SelectionFrag : Fragment() {
             return
         }
 
-        val selectedsIntArray = selecteds.toIntArray()
         val bundle = Bundle()
-        bundle.putIntArray(MainActivity.DICE_KEY, selectedsIntArray)
+        val dicesIntArray = selecteds.map { dice -> dice.sides }.toIntArray()
+        bundle.putIntArray(KeyRepo.DICE_KEY, dicesIntArray,)
+        val drawableIdsIntArray = selecteds.map { dice -> dice.drawableId }.toIntArray()
+        bundle.putIntArray(KeyRepo.DICE_DRAW_ID_KEY, drawableIdsIntArray)
 
         val navController = findNavController()
         navController.navigate(R.id.nav_action_selec_to_roll, bundle)

@@ -8,10 +8,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diceroller.R
 import com.example.diceroller.databinding.ItemSelectedsBinding
+import com.example.diceroller.models.Dice
 
 class SelectedsAdapter(
     private val context: Context,
-    private val selecteds: MutableList<Int>,
+    private val dicesAndEmpties: List<Dice>,
     private val removeDice: (Int) -> Unit,
     private val removeSpace: (Int) -> Unit
     ) : RecyclerView.Adapter<SelectedsAdapter.VHolder>() {
@@ -28,30 +29,30 @@ class SelectedsAdapter(
     override fun onBindViewHolder(holder: VHolder, position: Int) {
         val selecitemImg = holder.binding.selecitemImgSelecteds
         val selecitemTxt = holder.binding.selectitemTxtSelecteds
-        val dice = selecteds[position]
-        val isDice = dice != 0
+        val dice = dicesAndEmpties[position]
+        val isDice = dice.sides != 0
 
         if (isDice) {
-            selecitemImg.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue_primary))
-            selecitemTxt.text = dice.toString()
+            selecitemImg.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, dice.color))
+            selecitemTxt.text = dice.sides.toString()
         }
         else {
-            selecitemImg.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.gray))
+            selecitemImg.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, dice.color))
             selecitemTxt.text = ""
         }
 
         holder.itemView.setOnClickListener {
-            if (dice == 0 && selecteds.size >= 2) {
+            if (!isDice && dicesAndEmpties.size >= 2) {
                 removeSpace(position)
             }
-            if (dice != 0) {
+            if (isDice) {
                 removeDice(position)
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return selecteds.size
+        return dicesAndEmpties.size
     }
 
 }

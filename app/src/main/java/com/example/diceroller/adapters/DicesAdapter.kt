@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.diceroller.R
 import com.example.diceroller.databinding.ItemDicesBinding
+import com.example.diceroller.models.Dice
 
-class DicesAdapter(private val context: Context, private val dices: List<Int>, private val addDice: (Int) -> Unit) : RecyclerView.Adapter<DicesAdapter.VHolder>() {
+class DicesAdapter(
+    private val context: Context,
+    private val dices: List<Dice>,
+    private val addDice: (Dice) -> Unit) : RecyclerView.Adapter<DicesAdapter.VHolder>() {
 
     inner class VHolder(val binding: ItemDicesBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -28,22 +31,20 @@ class DicesAdapter(private val context: Context, private val dices: List<Int>, p
 
         with(hbinding) {
 
-            fun setImgDice(img: ImageView, dice: Int) {
-                val drawableName = "d${dice}_128"
-                val drawableId = context.resources.getIdentifier(drawableName, "drawable", context.packageName)
+            fun setImgDice(img: ImageView) {
+                val drawableId = dice.drawableId
                 val drawable = ContextCompat.getDrawable(context, drawableId)
 
                 img.setImageDrawable(drawable)
             }
 
             fun add(view: View) {
-                val dice = dices[position]
                 addDice(dice)
 
                 view.playSoundEffect(SoundEffectConstants.CLICK)
             }
 
-            setImgDice(diceitemImgDice, dice)
+            setImgDice(diceitemImgDice)
 
             diceitemImgDice.setOnClickListener { imgView ->
                 add(imgView)
@@ -53,7 +54,7 @@ class DicesAdapter(private val context: Context, private val dices: List<Int>, p
                 setOnClickListener { txtView ->
                     add(txtView)
                 }
-                text = dice.toString()
+                text = dice.sides.toString()
             }
         }
     }

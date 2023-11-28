@@ -11,10 +11,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.diceroller.controllers.actvs.MainActivity
 import com.example.diceroller.adapters.RollingAdapter
 import com.example.diceroller.databinding.FragRollingBinding
 import com.example.diceroller.databinding.ItemRollingBinding
+import com.example.diceroller.repos.KeyRepo
 import java.util.Random
 
 class RollingFrag : Fragment() {
@@ -32,6 +32,8 @@ class RollingFrag : Fragment() {
     }
 
     private lateinit var dices: List<Int>
+
+    private lateinit var drawableIds: List<Int>
 
     private lateinit var rollingAdapter: RollingAdapter
 
@@ -51,17 +53,19 @@ class RollingFrag : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dices = arguments?.getIntArray(MainActivity.DICE_KEY)!!.toList()
+        dices = arguments?.getIntArray(KeyRepo.DICE_KEY)!!.toList()
         dices = putEmpties(dices)
+        drawableIds = arguments?.getIntArray(KeyRepo.DICE_DRAW_ID_KEY)!!.toList()
+        drawableIds = putEmpties(drawableIds)
 
-        setupRecyView(dices)
+        setupRecyView(dices, drawableIds)
         setupRollFAB()
     }
 
-    private fun setupRecyView(dices: List<Int>) {
+    private fun setupRecyView(dices: List<Int>, drawableIds: List<Int>) {
         val spanCount = 3
         val gridLayoutManager = GridLayoutManager(requireContext(), spanCount)
-        rollingAdapter = RollingAdapter(dices)
+        rollingAdapter = RollingAdapter(requireContext(), dices, drawableIds)
 
         with(recyView) {
             layoutManager = gridLayoutManager
@@ -79,25 +83,25 @@ class RollingFrag : Fragment() {
         }
     }
 
-    private fun putEmpties(dices: List<Int>) : List<Int> {
+    private fun putEmpties(list: List<Int>) : List<Int> {
         val empty = 0
-        val dicesAndEmpties = mutableListOf<Int>()
-        val size = dices.size
+        val size = list.size
+        val mutableList = mutableListOf<Int>()
 
         fun lastRow() {
-            with(dicesAndEmpties) {
+            with(mutableList) {
                 add(empty)
-                add(dices.last())
+                add(list.last())
                 add(empty)
             }
         }
 
         fun fillEvenRows (limit: Int) {
             for (i in 0 until limit step 2) {
-                with(dicesAndEmpties) {
-                    add(dices[i])
+                with(mutableList) {
+                    add(list[i])
                     add(empty)
-                    add(dices[i + 1])
+                    add(list[i + 1])
                 }
             }
         }
@@ -113,7 +117,7 @@ class RollingFrag : Fragment() {
             fillEvenRows(size)
         }
 
-        return dicesAndEmpties.toList()
+        return mutableList.toList()
     }
 
     private fun rolling() {

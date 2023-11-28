@@ -23,6 +23,7 @@
         app:layout_constraintEnd_toEndOf="@id/selecitem_img_selecteds"
         app:layout_constraintBottom_toBottomOf="@id/selecitem_img_selecteds"
         android:text=""
-        android:textSize="@dimen/textNumberSelecteds"/>
+        android:textSize="@dimen/textNumberSelecteds"
+        android:textStyle="bold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

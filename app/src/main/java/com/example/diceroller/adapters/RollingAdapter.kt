@@ -1,11 +1,17 @@
 package com.example.diceroller.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diceroller.databinding.ItemRollingBinding
 
-class RollingAdapter(val dicesAndEmpties: List<Int>,) : RecyclerView.Adapter<RollingAdapter.VHolder>() {
+class RollingAdapter(
+    private val context: Context,
+    val dicesAndEmpties: List<Int>,
+    private val drawableIds: List<Int>
+) : RecyclerView.Adapter<RollingAdapter.VHolder>() {
 
     inner class VHolder(val binding: ItemRollingBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -23,6 +29,10 @@ class RollingAdapter(val dicesAndEmpties: List<Int>,) : RecyclerView.Adapter<Rol
 
         if (isDice){
             txt.text = dicesAndEmpties[position].toString()
+
+            val drawableId = drawableIds[position]
+            val drawable = ContextCompat.getDrawable(context, drawableId)
+            img.setImageDrawable(drawable)
         } else {
             txt.text = null
             img.setImageDrawable(null)

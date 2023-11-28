@@ -11,10 +11,6 @@ import com.example.diceroller.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
-        const val DICE_KEY = "dices"
-    }
-
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
