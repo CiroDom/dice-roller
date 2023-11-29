@@ -1,11 +1,9 @@
 package com.example.diceroller.controllers.frags
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,6 +13,7 @@ import com.example.diceroller.adapters.DicesAdapter
 import com.example.diceroller.adapters.SelectedsAdapter
 import com.example.diceroller.databinding.FragSelectionBinding
 import com.example.diceroller.repos.KeyRepo
+import com.example.diceroller.utils.OurToast
 
 class SelectionFrag : Fragment() {
 
@@ -109,6 +108,7 @@ class SelectionFrag : Fragment() {
             for (i in 0 until selecteds.size) {
                 if (selecteds[i] == noDice) {
                     selecteds[i] = dice
+                    selectedsAdapter.notifyDataSetChanged()
                     break
                 }
             }
@@ -118,8 +118,10 @@ class SelectionFrag : Fragment() {
 
             updateDiceQuant()
         }
-
-        selectedsAdapter.notifyDataSetChanged()
+        else {
+            maxDiceWarning()
+            return
+        }
     }
 
     private fun removeDice(dicePosition: Int) {
@@ -135,7 +137,10 @@ class SelectionFrag : Fragment() {
     }
 
     private fun increseDiceQuant() {
-        if (selecteds.size >= maxDiceQuant) return
+        if (selecteds.size >= maxDiceQuant) {
+            maxDiceWarning()
+            return
+        }
 
         selecteds.add(noDice)
 
@@ -146,8 +151,6 @@ class SelectionFrag : Fragment() {
     }
 
     private fun decreaseDiceQuant() {
-        if (oneNoDice()) return
-
         if (selecteds.contains(noDice)) {
             selecteds.remove(noDice)
         } else if (selecteds.size >= 2) {
@@ -170,18 +173,13 @@ class SelectionFrag : Fragment() {
 
     private fun goToRollingActv() {
         if (selecteds.contains(noDice)) {
-            val msgEnd =
+            val endMsg =
                 if (selecteds.size == 1) getString(R.string.dice)
                 else getString(R.string.dices)
 
-            Toast.makeText(
-                requireContext(),
-                getString(R.string.toast_warning, selecteds.size, msgEnd),
-                Toast.LENGTH_SHORT
-            ).apply {
-                setGravity(Gravity.CENTER, 0, 0)
-                show()
-            }
+            val msg = getString(R.string.toast_warning_number, selecteds.size, endMsg)
+
+            OurToast.use(requireContext(), msg)
 
             return
         }
@@ -194,14 +192,11 @@ class SelectionFrag : Fragment() {
         navController.navigate(R.id.nav_action_selec_to_roll, bundle)
     }
 
-    private fun oneNoDice() : Boolean {
-        if (
-            selecteds.size == 1
-            && selecteds.contains(noDice)
-        ) {
-            return true
-        }
+    private fun maxDiceWarning() {
+        if (selecteds.size >= maxDiceQuant) {
+            val msg = getString(R.string.toast_warning_max, maxDiceQuant)
 
-        return false
+            OurToast.use(requireContext(), msg)
+        }
     }
 }

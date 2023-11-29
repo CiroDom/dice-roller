@@ -4,5 +4,6 @@
     <string name="roll">Roll</string>
     <string name="dice">dice</string>
     <string name="dices">dices</string>
-    <string name="toast_warning">Choose %d %s</string>
+    <string name="toast_warning_number">Choose %d %s</string>
+    <string name="toast_warning_max">Max: %d dices</string>
 </resources>
