@@ -24,6 +24,7 @@
         app:layout_constraintBottom_toBottomOf="@id/selecitem_img_selecteds"
         android:text=""
         android:textSize="@dimen/textNumberSelecteds"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="@color/gray"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
