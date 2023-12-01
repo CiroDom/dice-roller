@@ -14,8 +14,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/selec_txt_rolling"
-        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/selec_recyview_selecteds"
+        android:layout_marginVertical="@dimen/marginRecyView"
         tools:listitem="@layout/item_dices"
         tools:itemCount="8"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -26,10 +26,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selec_recyview_dices"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/selec_txt_rolling"
-        android:layout_marginBottom="16dp"
+        android:layout_marginVertical="@dimen/marginRecyView"
         tools:listitem="@layout/item_selecteds"
         tools:itemCount="3"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -41,8 +40,7 @@
         android:layout_height="72dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/marginBottomFAB"
+        app:layout_constraintBottom_toTopOf="@id/selec_txt_dice_or_dices"
         android:text=""/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -71,7 +69,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/selec_fab_next"
-        android:layout_marginVertical="@dimen/marginVerticalText"
         android:text="Roll"
         android:textSize="@dimen/textLetterNormal"/>
 
@@ -92,10 +89,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selec_fab_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginVertical="@dimen/marginVerticalText"
         android:text="dice"
         android:textSize="@dimen/textLetterNormal"/>
 

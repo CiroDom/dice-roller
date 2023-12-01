@@ -19,6 +19,7 @@
     <dimen name="marginHoriFAB">8dp</dimen>
     <dimen name="marginVerticalText">8dp</dimen>
     <dimen name="marginRollingItem">8dp</dimen>
+    <dimen name="marginRecyView">8dp</dimen>
 
     <dimen name="paddingLayout">16dp</dimen>
 </resources>

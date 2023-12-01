@@ -151,17 +151,16 @@ class SelectionFrag : Fragment() {
     }
 
     private fun decreaseDiceQuant() {
-        if (selecteds.contains(noDice)) {
-            selecteds.remove(noDice)
-        } else if (selecteds.size >= 2) {
-            selecteds.removeLast()
-        } else {
-            selecteds[0] = noDice
-        }
-
         if (selecteds.size == 1) {
+            selecteds[0] = noDice
             diceOrDices.text = getString(R.string.dice)
         }
+        else if (selecteds.contains(noDice)) {
+            selecteds.remove(noDice)
+        } else {
+            selecteds.removeLast()
+        }
+
         updateDiceQuant()
     }
 
